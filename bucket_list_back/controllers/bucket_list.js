@@ -32,10 +32,12 @@ bucketListRouter.get( '/:id', function( req, res ){
 bucketListRouter.post( '/', function( req, res ){
 
   var entryParams = {
-    'countryId': ObjectId(req.body.countryID),
+    'countryId': ObjectId(req.body.countryId),
     'date': req.body.date,
     'completed': false
   };
+
+  console.log( "req.body.countryID", req.body.countryId )
 
   var bucketListEntry = new BucketListEntry( entryParams );
 
