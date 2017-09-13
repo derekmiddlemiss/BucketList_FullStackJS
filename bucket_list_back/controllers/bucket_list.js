@@ -18,6 +18,16 @@ bucketListRouter.get( '/', function( req, res ){
   });
 });
 
+// SHOW 
+bucketListRouter.get( '/:id', function( req, res ){
+  db.collection( 'entries' ).find( { "_id": ObjectId( req.params.id ) } ).toArray( 
+    function( err, results ){
+    if ( err ) console.log( "Error: " + err.toString() );
+    res.json( results );
+  });
+})
+
+
 // CREATE
 bucketListRouter.post( '/', function( req, res ){
 
