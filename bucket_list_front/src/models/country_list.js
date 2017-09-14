@@ -1,3 +1,5 @@
+var Country = require( './country' );
+
 var CountryList = function( url ){
   this.url = url;
   this.countries = [];
@@ -10,11 +12,18 @@ CountryList.prototype.getCountries = function(){
   request.addEventListener( 'load', function(){
     if( request.status === 200 ){
       var jsonString = request.responseText;
-      this.countries = JSON.parse( jsonString );
+      var fullCountryObjects = JSON.parse( jsonString );
+      this.countries = CountryList.parseCountries( fullCountryObjects );
       this.onUpdate( this.countries );
     }
   }.bind( this ) );
   request.send();
+}
+
+CountryList.parseCountries = function( fullCountryObjects ){
+  return fullCountryObjects.map( function( fullCountryObject ){
+    return new Country( fullCountryObject );
+  })
 }
 
 
